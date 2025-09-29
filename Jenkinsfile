@@ -28,9 +28,19 @@ pipeline {
     post {
         success {
             echo '✅'
+            githubNotify(
+                            status: 'SUCCESS',
+                            context: 'CI/CD',
+                            credentialsId: 'github-token'
+                        )
         }
         failure {
             echo '❌'
+            githubNotify(
+                status: 'FAILURE',
+                context: 'CI/CD',
+                credentialsId: 'github-token'
+            )
         }
     }
 }
