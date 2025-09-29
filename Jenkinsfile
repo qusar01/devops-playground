@@ -6,6 +6,15 @@ pipeline {
     }
 
     stages {
+        stage('Notify Pending') {
+                    steps {
+                        githubNotify(
+                            status: 'PENDING',
+                            context: 'CI/CD',
+                            credentialsId: 'github-token'
+                        )
+                    }
+                }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/qusar01/devops-playground.git'
