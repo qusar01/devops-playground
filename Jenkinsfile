@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Notify Pending') {
                     steps {
                         githubNotify(
@@ -16,11 +22,6 @@ pipeline {
                         )
                     }
                 }
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/qusar01/devops-playground.git'
-            }
-        }
 
         stage('Build') {
             steps {
