@@ -10,6 +10,7 @@ pipeline {
                     steps {
                         githubNotify(
                             status: 'PENDING',
+                            description: 'Started',
                             context: 'CI/CD',
                             credentialsId: 'github-token'
                         )
@@ -39,6 +40,7 @@ pipeline {
             echo '✅'
             githubNotify(
                             status: 'SUCCESS',
+                            description: 'Passed',
                             context: 'CI/CD',
                             credentialsId: 'github-token'
                         )
@@ -47,6 +49,7 @@ pipeline {
             echo '❌'
             githubNotify(
                 status: 'FAILURE',
+                description: 'Failed',
                 context: 'CI/CD',
                 credentialsId: 'github-token'
             )
