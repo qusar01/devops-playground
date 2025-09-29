@@ -8,20 +8,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/qusar01/devops-playground.git'
             }
         }
-
-        stage('Notify Pending') {
-                    steps {
-                        githubNotify(
-                            status: 'PENDING',
-                            description: 'Started',
-                            context: 'CI/CD',
-                            credentialsId: 'github-token'
-                        )
-                    }
-                }
 
         stage('Build') {
             steps {
@@ -39,21 +28,9 @@ pipeline {
     post {
         success {
             echo '✅'
-            githubNotify(
-                            status: 'SUCCESS',
-                            description: 'Passed',
-                            context: 'CI/CD',
-                            credentialsId: 'github-token'
-                        )
         }
         failure {
             echo '❌'
-            githubNotify(
-                status: 'FAILURE',
-                description: 'Failed',
-                context: 'CI/CD',
-                credentialsId: 'github-token'
-            )
         }
     }
 }
